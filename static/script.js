@@ -5,13 +5,17 @@ document.addEventListener("DOMContentLoaded", function() {
     urlForm.addEventListener("submit", async function(event) {
         event.preventDefault(); // Empêche le rechargement de la page
         const urlInput = document.getElementById("url").value;
-        await checkURL(urlInput);
+        const slugInput = document.getElementById("slug").value;
+        await checkURL(urlInput, slugInput);
     });
 
-    async function checkURL(url) {
+    async function checkURL(url, slug) {
         try {
             const formData = new FormData();
             formData.append("url", url);
+            if (slug){
+                formData.append("slug", slug);
+            }
 
             const response = await fetch("/url", {
                 method: "POST",

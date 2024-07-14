@@ -89,7 +89,7 @@ def read_root():
         return HTMLResponse(content=html_content)
 
 @app.post("/url")
-def create_url(url: str = Form(...), db: Session = Depends(get_db)):
+def create_url(url: str = Form(...), slug: str = Form(...), db: Session = Depends(get_db)):
     """
     Endpoint to shorten a long URL. Validates the URL first, checks its accessibility,
     generates a unique slug, saves the URL and slug in the database.
@@ -99,7 +99,12 @@ def create_url(url: str = Form(...), db: Session = Depends(get_db)):
     if not validators.url(url):
         raise_bad_request(message="L'URL saisie est incorrecte")
     if is_url_accessible(url):
-       slug = generate_unique_slug(db)
+       if slug:
+           existing_url = db.query(URL).filter(URL.slug == slug).first()
+           if existing_url:
+               raise raise_bad_request("Le slug fourni est déjà utilisé.")
+       else:
+           slug = generate_unique_slug(db)
 
        db_url = URL(original_url=url, slug=slug)
        db.add(db_url)
