@@ -3,12 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const resultDiv = document.getElementById("result");
 
     urlForm.addEventListener("submit", async function(event) {
-        event.preventDefault(); // Empêche le rechargement de la page
+        event.preventDefault(); 
         const urlInput = document.getElementById("url").value;
         const slugInput = document.getElementById("slug").value;
         await checkURL(urlInput, slugInput);
     });
 
+    /**
+     * Send a POST request to the server with form data.
+     * @param {string} url - The URL input value.
+     * @param {string} slug - The optional slug input value.
+     */
     async function checkURL(url, slug) {
         try {
             const formData = new FormData();
@@ -28,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    /**
+     * Function to handle the response from the server.
+     * @param {Response} response - The response object from the fetch request.
+     */
     async function handleResponse(response) {
         try {
             const data = await response.json(); 
@@ -41,6 +50,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    /**
+     * Function to display a message in the result div with specified color.
+     * @param {string} message - The message to display.
+     * @param {string} color - The color of the message (e.g., "green", "red").
+     */
     function displayResult(message, color) {
         resultDiv.innerHTML = message;
         resultDiv.style.color = color;

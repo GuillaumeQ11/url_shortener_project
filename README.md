@@ -4,8 +4,9 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
 
 ## Fonctionnalités
 
-- **Raccourcissement d'URL :** Permet aux utilisateurs de soumettre une URL longue et de recevoir en retour une URL raccourcie unique.
+- **Raccourcissement d'URLs :** Permet aux utilisateurs de soumettre une URL longue et de recevoir en retour une URL raccourcie unique.
 - **Redirection :** Les URLs raccourcies redirigent les utilisateurs vers l'URL d'origine.
+- **Personnalisation :** L'utilisateur peut définir un slug personalisés pour ses URLs 
 
 ## Installation
 
@@ -47,7 +48,10 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
 
 2. Entrez une URL longue dans le champ dédié et soumettez le formulaire.
 
-3. Vous recevrez une URL raccourcie qui redirige vers l'URL d'origine.
+3. (Optionnel) Vous pouvez entrer un slug personnalisé dans le champ dédié.
+
+4. Vous recevrez une URL raccourcie qui redirige vers l'URL d'origine.
+
 
 ## Auteur
 
