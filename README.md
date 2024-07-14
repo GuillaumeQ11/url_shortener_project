@@ -42,6 +42,14 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
 
    L'application sera accessible à l'adresse par défaut : [http://localhost:8000](http://localhost:8000).
 
+3. **Lancement des tests :**
+
+   Pour lancer les tests : 
+
+   ```bash
+   python -m tests
+   ```
+
 ## Utilisation
 
 1. Accédez à l'interface web à [http://localhost:8000](http://localhost:8000).
