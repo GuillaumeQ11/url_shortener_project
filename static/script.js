@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const data = await response.json(); 
             if (response.ok) {
-                displayResult(data.short_url, "green"); 
+                displayResult(`<a href="${data.short_url}" target="_blank">${data.short_url}</a>`, "green"); 
             } else {
                 displayResult(data.detail, "red"); 
             }
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function displayResult(message, color) {
-        resultDiv.textContent = message;
+        resultDiv.innerHTML = message;
         resultDiv.style.color = color;
     }
 });
