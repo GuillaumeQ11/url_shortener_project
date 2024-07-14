@@ -89,7 +89,7 @@ def read_root():
         return HTMLResponse(content=html_content)
 
 @app.post("/url")
-def create_url(url: str = Form(...), slug: str = Form(...), db: Session = Depends(get_db)):
+def create_url(url: str = Form(...), slug: str = Form(None), db: Session = Depends(get_db)):
     """
     Endpoint to shorten a long URL. Validates the URL first, checks its accessibility,
     generates a unique slug, saves the URL and slug in the database.
