@@ -5,10 +5,13 @@
 </head>
 <body>
     <h1>Entrez votre URL</h1>
-    <form action="/url" method="post">
+    <form id="url-form">
         <label for="url">URL :</label>
         <input type="text" id="url" name="url" required>
         <button type="submit">Submit</button>
     </form>
+    <div id="result"></div>
+    
+    <script src="static/script.js"></script>
 </body>
 </html>
