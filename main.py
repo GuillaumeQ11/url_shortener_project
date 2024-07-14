@@ -3,7 +3,7 @@ import requests
 import os
 import uuid
 from fastapi import FastAPI, HTTPException, Form, Depends
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -71,7 +71,15 @@ def create_url(url: str = Form(...), db: Session = Depends(get_db)):
        return {"short_url": f"http://localhost:8000/{slug}"}
     else:
         raise HTTPException(status_code=404, detail="L'URL n'est pas accessible")
-    
+
+@app.get("/{slug}")
+def redirect_url(slug: str, db: Session = Depends(get_db)):
+    db_url = db.query(URL).filter(URL.slug == slug).first()
+    if db_url:
+        return RedirectResponse(url=db_url.original_url)
+    else:
+        raise raise_bad_request("URL raccourcie non trouvée")
+
 def generate_unique_slug(db: Session):
     while True:
         slug = str(uuid.uuid4())[:8]
