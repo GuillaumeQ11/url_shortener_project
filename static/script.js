@@ -24,16 +24,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function handleResponse(response) {
-        response.text().then(resultText => {
+    async function handleResponse(response) {
+        try {
+            const data = await response.json(); 
             if (response.ok) {
-                displayResult(resultText, "green");
+                displayResult(data.short_url, "green"); 
             } else {
-                displayResult(resultText, "red");
+                displayResult(data.detail, "red"); 
             }
-        }).catch(() => {
+        } catch (error) {
             displayResult("Error processing response", "red");
-        });
+        }
     }
 
     function displayResult(message, color) {

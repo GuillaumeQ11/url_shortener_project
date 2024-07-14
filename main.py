@@ -1,13 +1,40 @@
-from fastapi import FastAPI, HTTPException, Form
 import validators
 import requests
 import os
+import uuid
+from fastapi import FastAPI, HTTPException, Form, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, Session
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./url.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+class URL(Base):
+    __tablename__ = "urls"
+
+    id = Column(Integer, primary_key=True, index=True)
+    original_url = Column(String, index=True)
+    slug = Column(String, unique=True, index=True)
+
+Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close
 
 @app.get("/")
 def read_root():
@@ -29,10 +56,26 @@ def is_url_accessible(url: str) -> bool:
         return False
 
 @app.post("/url")
-def create_url(url: str = Form(...)):
+def create_url(url: str = Form(...), db: Session = Depends(get_db)):
     if not validators.url(url):
         raise_bad_request(message="L'URL saisie est incorrecte")
     if is_url_accessible(url):
-        return "L'URL est accessible !"
+       slug = generate_unique_slug(db)
+
+       db_url = URL(original_url=url, slug=slug)
+       db.add(db_url)
+       db.commit()
+       db.refresh(db_url)
+       db.close()
+
+       return {"short_url": f"http://localhost:8000/{slug}"}
     else:
-        return "L'url n'est pas accessible"
+        raise HTTPException(status_code=404, detail="L'URL n'est pas accessible")
+    
+def generate_unique_slug(db: Session):
+    while True:
+        slug = str(uuid.uuid4())[:8]
+        existing_url = db.query(URL).filter(URL.slug == slug).first()
+        db.close()
+        if not existing_url:
+            return slug
