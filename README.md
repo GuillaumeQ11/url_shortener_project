@@ -47,7 +47,7 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
    Pour lancer les tests : 
 
    ```bash
-   python -m tests
+   python -m pytest
    ```
 
 ## Utilisation
