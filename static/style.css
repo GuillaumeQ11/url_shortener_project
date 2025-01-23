@@ -1,0 +1,53 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    max-width: 500px;
+    margin: auto;
+}
+
+.form-control {
+    max-width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+}
+
+#result {
+    font-weight: bold;
+    color: green;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    padding: 5px;  
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    width: 30px; 
+    height: 30px; 
+}
+
+.copy-btn i {
+    font-size: 25px; 
+    margin-left: 30px;
+}
+
+
+.copy-btn:hover {
+    color: #0056b3; 
+}
+
+.result-section {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

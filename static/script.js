@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const data = await response.json(); 
             if (response.ok) {
-                displayResult(`<a href="${data.short_url}" target="_blank">${data.short_url}</a>`, "green"); 
+                displayResult(`<a href="${data.short_url}" target="_blank" id="result-link">${data.short_url}</a>`, "green"); 
             } else {
                 displayResult(data.detail, "red"); 
             }
@@ -56,7 +56,24 @@ document.addEventListener("DOMContentLoaded", function() {
      * @param {string} color - The color of the message (e.g., "green", "red").
      */
     function displayResult(message, color) {
-        resultDiv.innerHTML = message;
-        resultDiv.style.color = color;
+        const resultSection = document.getElementById("result-section");
+        const resultText = document.getElementById("result");
+        const copyBtn = document.querySelector('.copy-btn');
+
+        resultText.innerHTML = message;
+        resultText.style.color = color;
+
+        if(message && color != "red"){
+            resultSection.style.display = "flex";
+        }else if (color == "red") {
+            copyBtn.style.display = "none";
+        } else {
+            copyBtn.style.display = "flex";            
+        }
     }
 });
+
+function copyToClipboard() {
+    const resultLink = document.getElementById("result-link").textContent;
+    navigator.clipboard.writeText(resultLink);
+}
