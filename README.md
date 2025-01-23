@@ -7,6 +7,17 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
 - **Raccourcissement d'URLs :** Permet aux utilisateurs de soumettre une URL longue et de recevoir en retour une URL raccourcie unique.
 - **Redirection :** Les URLs raccourcies redirigent les utilisateurs vers l'URL d'origine.
 - **Personnalisation :** L'utilisateur peut définir un slug personalisés pour ses URLs 
+- **Copie :** Une icône pour copier le lien directement dans le clipboard a été ajouté
+
+
+## Présentation en images
+
+Voici comment se présente l'application en images :
+
+![Image de l'application](images/app.png)
+
+![Utilisation de l'application](images/app_usage.png)
+
 
 ## Installation
 
@@ -60,6 +71,7 @@ Cette application web permet de raccourcir des URLs longues en URLs plus courtes
 
 4. Vous recevrez une URL raccourcie qui redirige vers l'URL d'origine.
 
+5. Vous pouvez cliquez sur le l'icône de copie de lien afin de l'avoir directement dans le clipboard
 
 ## Auteur
 
